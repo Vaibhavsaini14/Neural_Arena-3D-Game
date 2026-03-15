@@ -8,10 +8,7 @@
 </head>
 <body>
 
-  <!-- Three.js canvas mount point -->
   <div id="cw"></div>
-
-  <!-- ── HUD ─────────────────────────────────────────────── -->
   <div id="hud">
     <div id="crosshair"><div class="chdot"></div></div>
 
@@ -47,17 +44,12 @@
     </div>
   </div>
 
-  <!-- ── CONTROLS HINT ────────────────────────────────────── -->
   <div id="ctrlstrip">
     ↑↓ MOVE &nbsp; ←→ ROTATE<br>
     SPACE SHOOT<br>
     ESC MENU
   </div>
-
-  <!-- ── BACK TO MENU BUTTON ──────────────────────────────── -->
   <button id="back-btn" onclick="confirmMenu()">‹ MAIN MENU</button>
-
-  <!-- ── CONFIRM DIALOG ───────────────────────────────────── -->
   <div id="confirm-box">
     <div class="conf-title">ABANDON MISSION?</div>
     <div class="conf-sub">CURRENT PROGRESS WILL BE LOST</div>
@@ -67,17 +59,14 @@
     </div>
   </div>
 
-  <!-- ── HIDING WARNING ───────────────────────────────────── -->
   <div id="hidewarn">
     ⚠ STOP HIDING — MOVE NOW ⚠<br>
     <span style="font-size:9px;opacity:.7;letter-spacing:3px">PROJECTILES NOW PIERCING COVER</span>
   </div>
 
-  <!-- ── FX OVERLAYS ──────────────────────────────────────── -->
+  
   <div id="vignette"></div>
   <div id="pkflash"></div>
-
-  <!-- ── MAIN MENU / GAME OVER / LEVEL CLEAR OVERLAY ─────── -->
   <div id="overlay" class="vis menu">
     <div class="ovtitle">NEURAL ARENA</div>
     <div class="ovsub">CYBER COMBAT SIMULATION &nbsp;|&nbsp; SELECT DIFFICULTY</div>
@@ -93,10 +82,9 @@
     </div>
   </div>
 
-  <!-- ── SCRIPTS ──────────────────────────────────────────── -->
-  <!-- Three.js via CDN (must load before game.js) -->
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <!-- Game logic -->
+  
   <script src="game.js"></script>
 
 </body>
