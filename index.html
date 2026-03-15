@@ -10,7 +10,7 @@
 body{background:#000;overflow:hidden;font-family:'Share Tech Mono',monospace;color:#0cf;cursor:crosshair}
 #cw{position:fixed;inset:0}
  
-/* ── HUD ────────────────────────────────── */
+
 #hud{position:fixed;inset:0;pointer-events:none;z-index:10;display:none}
  
 #crosshair{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
@@ -33,18 +33,18 @@ body{background:#000;overflow:hidden;font-family:'Share Tech Mono',monospace;col
  
 #ctrlstrip{position:fixed;top:58px;right:22px;font-size:9px;letter-spacing:2px;color:rgba(0,200,255,.35);line-height:2.1;pointer-events:none;z-index:10;text-align:right;display:none}
  
-/* ── BACK BUTTON ─────────────────────────── */
+
 #back-btn{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:20;display:none;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:3px;padding:9px 22px;background:rgba(0,5,14,.8);border:1px solid rgba(0,180,255,.28);color:rgba(0,200,255,.55);cursor:pointer;text-transform:uppercase;pointer-events:all;transition:all .22s;clip-path:polygon(0 0,calc(100% - 6px) 0,100% 6px,100% 100%,6px 100%,0 calc(100% - 6px))}
 #back-btn:hover{background:rgba(0,10,28,.92);border-color:rgba(0,200,255,.7);color:#0cf;box-shadow:0 0 16px rgba(0,200,255,.3)}
  
-/* ── CONFIRM DIALOG ──────────────────────── */
+
 #confirm-box{position:fixed;inset:0;z-index:80;background:rgba(0,2,8,.88);display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px}
 #confirm-box.vis{display:flex}
 .conf-title{font-family:'Orbitron',monospace;font-size:18px;letter-spacing:5px;color:#0cf;text-shadow:0 0 18px #0cf8;text-transform:uppercase}
 .conf-sub{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.4)}
 .conf-row{display:flex;gap:16px}
  
-/* ── OVERLAYS ───────────────────────────── */
+
 #overlay{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s}
 #overlay.vis{opacity:1;pointer-events:all}
 #overlay.menu{background:rgba(0,2,8,.96)}
@@ -65,7 +65,7 @@ body{background:#000;overflow:hidden;font-family:'Share Tech Mono',monospace;col
 .ovbtn:hover{background:rgba(255,255,255,.08);box-shadow:0 0 22px currentColor;color:#fff}
 .menukeys{margin-top:22px;font-size:10px;letter-spacing:2px;color:rgba(0,200,255,.33);text-align:center;line-height:2.2}
  
-/* ── FX OVERLAYS ────────────────────────── */
+
 #vignette{position:fixed;inset:0;pointer-events:none;z-index:30;background:radial-gradient(ellipse at center,transparent 55%,rgba(255,0,30,0) 100%);transition:background .12s}
 #vignette.hit{background:radial-gradient(ellipse at center,transparent 30%,rgba(255,0,30,.62) 100%);transition:background 0s}
 #pkflash{position:fixed;inset:0;pointer-events:none;z-index:31;background:rgba(0,255,80,0);transition:background .12s}
@@ -73,7 +73,7 @@ body{background:#000;overflow:hidden;font-family:'Share Tech Mono',monospace;col
 #hidewarn{position:fixed;top:27%;left:50%;transform:translateX(-50%);font-family:'Orbitron',monospace;font-size:12px;letter-spacing:5px;color:#ff4400;text-shadow:0 0 14px #ff4400;pointer-events:none;z-index:40;opacity:0;text-align:center;line-height:1.8;transition:opacity .3s;animation:wp .6s ease-in-out infinite}
 @keyframes wp{0%,100%{opacity:1}50%{opacity:.25}}
  
-/* scanlines */
+
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);pointer-events:none;z-index:100}
 </style>
 </head>
@@ -104,10 +104,10 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
  
 <div id="ctrlstrip">↑↓ MOVE &nbsp; ←→ ROTATE<br>SPACE SHOOT<br>ESC MENU</div>
  
-<!-- Always-visible back to menu button -->
+
 <button id="back-btn" onclick="confirmMenu()">‹ MAIN MENU</button>
  
-<!-- Confirmation dialog -->
+
 <div id="confirm-box">
   <div class="conf-title">ABANDON MISSION?</div>
   <div class="conf-sub">CURRENT PROGRESS WILL BE LOST</div>
@@ -137,11 +137,7 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
  
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// ═══════════════════════════════════════════════════════════
-//  NEURAL ARENA  —  Advanced FPS  v2.0
-// ═══════════════════════════════════════════════════════════
- 
-// ── Difficulty Presets ─────────────────────────────────────
+
 const DIFF = {
   easy:   { speed:3.0,  rate:3000, spread:0.15, dmg:12, name:'EASY',   key:'easy'   },
   medium: { speed:5.0,  rate:2000, spread:0.07, dmg:18, name:'MEDIUM', key:'medium' },
@@ -149,7 +145,6 @@ const DIFF = {
 };
 let diff = DIFF.medium;
  
-// ── Renderer / Scene / Camera ──────────────────────────────
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.setSize(innerWidth, innerHeight);
@@ -165,33 +160,32 @@ scene.fog    = new THREE.FogExp2(0x000408, 0.015);
  
 const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 150);
  
-// ── Player Container ───────────────────────────────────────
+
 const playerObj = new THREE.Object3D();
 playerObj.position.set(0, 1.7, 10);
 scene.add(playerObj);
 playerObj.add(camera);
 camera.position.set(0, 0, 0);
  
-// ── Game State ─────────────────────────────────────────────
+
 const GS = {
-  phase: 'menu',   // menu | playing | levelclear | gameover
+  phase: 'menu',   
   level: 1, hp: 100, score: 0, shots: 0, enemyCount: 0,
   hidingTime: 0, hidingWarn: false, piercing: false,
   lastPos: new THREE.Vector3(), keys: {}
 };
  
-// ── Runtime Arrays ─────────────────────────────────────────
+
 let enemies   = [];
 let pBullets  = [];
 let eBullets  = [];
 let pickups   = [];
 let particles = [];
  
-// ── Static Collision Data ──────────────────────────────────
+
 let wallBoxes  = [];
 let coverBoxes = [];
  
-// ── Constants ──────────────────────────────────────────────
 const ARENA      = 24;
 const WALL_H     = 7;
 const P_SPEED    = 8;
@@ -204,11 +198,7 @@ const BOT_HP     = 3;
 const HIDE_WARN  = 5;
 const HIDE_PIERCE= 8;
  
-// ═══════════════════════════════════════════════════════════
-//  SCENE CONSTRUCTION
-// ═══════════════════════════════════════════════════════════
- 
-// Lights ────────────────────────────────────────────────────
+
 scene.add(new THREE.AmbientLight(0x040810, 1.6));
 scene.add(new THREE.HemisphereLight(0x001a30, 0x000408, 0.7));
  
@@ -224,7 +214,7 @@ scene.add(ctrLight);
   scene.add(pl);
 });
  
-// Floor ─────────────────────────────────────────────────────
+
 {
   const floor = new THREE.Mesh(
     new THREE.PlaneGeometry(ARENA*2, ARENA*2),
@@ -235,11 +225,11 @@ scene.add(ctrLight);
   scene.add(floor);
 }
  
-// Cyber grid ────────────────────────────────────────────────
+
 const g1 = new THREE.GridHelper(ARENA*2, 48, 0x003a66, 0x001a33); g1.position.y = 0.012; scene.add(g1);
 const g2 = new THREE.GridHelper(ARENA*2, 12, 0x0066bb, 0x002244); g2.position.y = 0.015; scene.add(g2);
  
-// Walls ─────────────────────────────────────────────────────
+
 function mkWall(w, h, d, x, y, z, col) {
   const m = new THREE.Mesh(
     new THREE.BoxGeometry(w, h, d),
@@ -249,7 +239,7 @@ function mkWall(w, h, d, x, y, z, col) {
   m.position.set(x, y, z);
   m.castShadow = m.receiveShadow = true;
   scene.add(m);
-  // Top neon strip
+  
   const strip = new THREE.Mesh(
     new THREE.BoxGeometry(w + 0.02, 0.09, d + 0.02),
     new THREE.MeshBasicMaterial({ color:0x0077ff, transparent:true, opacity:0.85 })
@@ -267,7 +257,7 @@ const wallMeshes = [
 ];
 wallBoxes = wallMeshes.map(w => new THREE.Box3().setFromObject(w));
  
-// Mid-wall accent lights
+
 [[0, WALL_H-0.4, -ARENA+1],[0, WALL_H-0.4, ARENA-1],
  [-ARENA+1, WALL_H-0.4, 0],[ARENA-1, WALL_H-0.4, 0]
 ].forEach(([x,y,z]) => {
@@ -275,7 +265,7 @@ wallBoxes = wallMeshes.map(w => new THREE.Box3().setFromObject(w));
   pl.position.set(x, y, z); scene.add(pl);
 });
  
-// Pillars / Cover ────────────────────────────────────────────
+
 const PILLAR_DEFS = [
   {x:-11,z:-9,  w:3,   h:4, d:3,   c:0x04101d},
   {x: 11,z:-9,  w:3,   h:4, d:3,   c:0x04101d},
@@ -298,31 +288,29 @@ PILLAR_DEFS.forEach((def, i) => {
   m.castShadow = m.receiveShadow = true;
   scene.add(m);
  
-  // Neon edge wireframe
+  
   const nc = NEON_C[i % NEON_C.length];
   m.add(new THREE.LineSegments(
     new THREE.EdgesGeometry(geo),
     new THREE.LineBasicMaterial({ color:nc, transparent:true, opacity:0.55 })
   ));
  
-  // Top glow point light
+  
   const pl = new THREE.PointLight(nc, 1.1, 10);
   pl.position.set(def.x, def.h*2 + 1.2, def.z);
   scene.add(pl);
  
-  // Cover AABB (slightly expanded for proximity hiding check)
+  
   const box = new THREE.Box3().setFromObject(m);
   coverBoxes.push(box);
 });
  
-// ═══════════════════════════════════════════════════════════
-//  HOVER-BOT  — Enemy Class
-// ═══════════════════════════════════════════════════════════
+
 class HoverBot {
   constructor(spawnPos) {
     this.hp      = BOT_HP;
     this.alive   = true;
-    this.state   = 'PATROL';  // PATROL | CHASE | SHOOT
+    this.state   = 'PATROL';  
     this.stTimer = 0;
     this.lastFire= 0;
     this.floatPh = Math.random() * Math.PI * 2;
@@ -331,7 +319,7 @@ class HoverBot {
     this.group = new THREE.Group();
     this.group.position.copy(spawnPos);
  
-    // SpotLight world-space target (added to scene)
+    
     this.spotTarget = new THREE.Object3D();
     this.spotTarget.position.set(spawnPos.x, 0, spawnPos.z);
     scene.add(this.spotTarget);
@@ -349,7 +337,6 @@ class HoverBot {
   }
  
   _build() {
-    // HEAD — metallic sphere with icosahedron edge lines
     this.headMat = new THREE.MeshStandardMaterial({
       color:0x1a0505, roughness:0.08, metalness:0.96,
       emissive:0x550000, emissiveIntensity:0.5
@@ -361,30 +348,26 @@ class HoverBot {
     ));
     this.group.add(this.head);
  
-    // EYE — small glowing sphere
     this.eyeMat = new THREE.MeshBasicMaterial({ color:0x00ff00 });
     this.eye    = new THREE.Mesh(new THREE.SphereGeometry(0.13, 8, 8), this.eyeMat);
     this.eye.position.set(0, 0.06, 0.5);
     this.head.add(this.eye);
     this.eyeLight = new THREE.PointLight(0x00ff00, 2.8, 8);
     this.eye.add(this.eyeLight);
- 
-    // SPOTLIGHT (scanning/tracking)
+   
     this.spot = new THREE.SpotLight(0x00ff44, 5, 24, Math.PI / 7, 0.48);
     this.spot.position.set(0, -0.1, 0.35);
     this.spot.castShadow = false;
     this.head.add(this.spot);
     this.spot.target = this.spotTarget;
  
-    // PRIMARY RING — horizontal torus
     this.ring1 = new THREE.Mesh(
       new THREE.TorusGeometry(0.9, 0.077, 8, 42),
       new THREE.MeshStandardMaterial({ color:0x0055ff, emissive:0x0033cc, emissiveIntensity:1.9, roughness:0.08, metalness:0.92 })
     );
     this.ring1.rotation.x = Math.PI / 2;
     this.group.add(this.ring1);
- 
-    // SECONDARY RING — tilted torus
+
     this.ring2 = new THREE.Mesh(
       new THREE.TorusGeometry(0.73, 0.052, 8, 36),
       new THREE.MeshStandardMaterial({ color:0xff0088, emissive:0xcc0066, emissiveIntensity:1.6, roughness:0.08, metalness:0.92 })
@@ -392,7 +375,6 @@ class HoverBot {
     this.ring2.rotation.set(Math.PI / 3.5, 0, Math.PI / 5);
     this.group.add(this.ring2);
  
-    // ENERGY CORE — spinning octahedron
     this.core = new THREE.Mesh(
       new THREE.OctahedronGeometry(0.19, 0),
       new THREE.MeshBasicMaterial({ color:0xff6600 })
@@ -400,11 +382,9 @@ class HoverBot {
     this.core.position.y = -0.22;
     this.group.add(this.core);
  
-    // BODY GLOW
     this.bodyLight = new THREE.PointLight(0xff2200, 1.6, 11);
     this.group.add(this.bodyLight);
  
-    // HP PIPS — small spheres above head
     this.pips = [];
     for (let i = 0; i < BOT_HP; i++) {
       const pip = new THREE.Mesh(
@@ -417,7 +397,7 @@ class HoverBot {
     }
   }
  
-  // State machine transitions ─────────────────────────────
+  
   _setState(s) {
     if (this.state === s) return;
     this.state   = s;
@@ -437,8 +417,7 @@ class HoverBot {
     if (!this.alive) return;
     const t    = Date.now() * 0.001;
     const pPos = playerObj.position.clone();
- 
-    // Float & animate
+
     this.group.position.y = 2.4 + Math.sin(t * 1.6 + this.floatPh) * 0.28;
     this.ring1.rotation.z += dt * 1.85;
     this.ring2.rotation.y -= dt * 1.35;
@@ -450,9 +429,8 @@ class HoverBot {
     const dist = toP.length();
     this.stTimer += dt;
  
-    // ── PATROL ────────────────────────────────────────────
     if (this.state === 'PATROL') {
-      // Sweeping spotlight
+      
       const sw = Math.sin(t * 1.35 + this.floatPh) * 0.55;
       this.spotTarget.position.set(
         this.group.position.x + Math.sin(this.head.rotation.y + sw) * 12,
@@ -460,7 +438,6 @@ class HoverBot {
         this.group.position.z + Math.cos(this.head.rotation.y + sw) * 12
       );
  
-      // Move toward waypoint
       const toW = new THREE.Vector3(
         this.waypoint.x - this.group.position.x, 0,
         this.waypoint.z - this.group.position.z
@@ -475,8 +452,6 @@ class HoverBot {
       }
       if (dist < DETECT_R) this._setState('CHASE');
     }
- 
-    // ── CHASE ─────────────────────────────────────────────
     else if (this.state === 'CHASE') {
       if (dist > DETECT_R + 5) { this._setState('PATROL'); return; }
       if (dist < SHOOT_R)      { this._setState('SHOOT');  return; }
@@ -489,8 +464,7 @@ class HoverBot {
       this.head.rotation.y   = Math.atan2(dir.x, dir.z);
       this.spotTarget.position.copy(pPos);
     }
- 
-    // ── SHOOT ─────────────────────────────────────────────
+     
     else if (this.state === 'SHOOT') {
       if (dist > SHOOT_R + 3) { this._setState('CHASE'); return; }
  
@@ -540,9 +514,7 @@ class HoverBot {
   }
 }
  
-// ═══════════════════════════════════════════════════════════
-//  BULLET SYSTEM
-// ═══════════════════════════════════════════════════════════
+
 function mkBullet(pos, dir, isPlayer) {
   const col  = isPlayer ? 0x00ffff : 0xff5500;
   const mesh = new THREE.Mesh(
@@ -552,11 +524,10 @@ function mkBullet(pos, dir, isPlayer) {
   mesh.position.copy(pos);
   scene.add(mesh);
  
-  // Bullet PointLight → illuminates room
+  
   const bLight = new THREE.PointLight(col, 3.2, 10);
   mesh.add(bLight);
  
-  // Trail — efficient BufferGeometry with 2 points
   const tPositions = new Float32Array(6);
   tPositions[0] = pos.x; tPositions[1] = pos.y; tPositions[2] = pos.z;
   tPositions[3] = pos.x; tPositions[4] = pos.y; tPositions[5] = pos.z;
@@ -591,8 +562,6 @@ function killBullet(arr, i) {
   arr[i].alive = false;
   arr.splice(i, 1);
 }
- 
-// Muzzle Flash ──────────────────────────────────────────────
 function muzzleFlash() {
   const flash = new THREE.Mesh(
     new THREE.SphereGeometry(0.075, 6, 6),
@@ -604,10 +573,6 @@ function muzzleFlash() {
   camera.add(flash);
   setTimeout(() => camera.remove(flash), 55);
 }
- 
-// ═══════════════════════════════════════════════════════════
-//  PARTICLE / IMPACT SYSTEM
-// ═══════════════════════════════════════════════════════════
 function spawnImpact(pos, col, n = 8) {
   for (let i = 0; i < n; i++) {
     const mesh = new THREE.Mesh(
@@ -650,9 +615,7 @@ function updateParticles(dt) {
   }
 }
  
-// ═══════════════════════════════════════════════════════════
-//  HEALTH PICKUPS
-// ═══════════════════════════════════════════════════════════
+
 function spawnPickup() {
   if (GS.phase !== 'playing') return;
   const grp = new THREE.Group();
@@ -661,7 +624,7 @@ function spawnPickup() {
   });
   grp.add(new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.14, 0.14), mat));
   grp.add(new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.56, 0.14), mat));
-  // Outer ring
+  
   const ring = new THREE.Mesh(
     new THREE.TorusGeometry(0.36, 0.03, 6, 24),
     new THREE.MeshBasicMaterial({ color:0x00ff66, transparent:true, opacity:0.65 })
@@ -700,9 +663,7 @@ function updatePickups(dt) {
   }
 }
  
-// ═══════════════════════════════════════════════════════════
-//  HIDING DETECTION
-// ═══════════════════════════════════════════════════════════
+
 function updateHiding(dt) {
   const pos = playerObj.position;
   if (pos.distanceTo(GS.lastPos) > 0.38) {
@@ -734,9 +695,7 @@ function updateHiding(dt) {
   }
 }
  
-// ═══════════════════════════════════════════════════════════
-//  COLLISION HELPERS
-// ═══════════════════════════════════════════════════════════
+
 const _S = new THREE.Sphere();
 const _B = new THREE.Box3();
  
@@ -754,9 +713,7 @@ function hitsBot(p, bot) {
   return _S.intersectsBox(_B);
 }
  
-// ═══════════════════════════════════════════════════════════
-//  PLAYER SHOOT
-// ═══════════════════════════════════════════════════════════
+
 let lastShot = 0;
 function doShoot() {
   const now = Date.now();
@@ -775,18 +732,16 @@ function doShoot() {
   updateHUD();
 }
  
-// ═══════════════════════════════════════════════════════════
-//  LEVEL MANAGEMENT
-// ═══════════════════════════════════════════════════════════
+
 function spawnLevel() {
   const n = GS.level;
   GS.enemyCount = n;
-  // All 10 spawn zones; shuffle each level so positions are never the same
+  
   const allSpawns = [
     [-16,-16],[16,-16],[-16,16],[16,16],
     [0,-20],[0,20],[-20,0],[20,0],[-14,-20],[14,-20]
   ];
-  // Fisher-Yates shuffle
+  
   for (let s = allSpawns.length - 1; s > 0; s--) {
     const r = Math.floor(Math.random() * (s + 1));
     [allSpawns[s], allSpawns[r]] = [allSpawns[r], allSpawns[s]];
@@ -820,7 +775,7 @@ function nextLevel() {
   GS.level++;
   GS.hidingTime = 0; GS.hidingWarn = false; GS.piercing = false;
  
-  // Full cleanup of lingering enemies, bullets, particles
+  
   enemies.forEach(e => { scene.remove(e.group); scene.remove(e.spotTarget); });
   enemies = [];
   cleanBullets();
@@ -829,7 +784,7 @@ function nextLevel() {
   pickups.forEach(p => scene.remove(p));
   pickups = [];
  
-  // Randomise player spawn — pick one of 8 safe corners/edges, facing inward
+  
   const playerSpawns = [
     { x:  0,  z: 16, ry: Math.PI      },
     { x:  0,  z:-16, ry: 0            },
@@ -856,9 +811,7 @@ function nextLevel() {
   updateHUD();
 }
  
-// ═══════════════════════════════════════════════════════════
-//  GAME FLOW  —  Start / Reset / GameOver / Menu
-// ═══════════════════════════════════════════════════════════
+
 function fullCleanup() {
   enemies.forEach(e => {
     if (e.alive) { scene.remove(e.group); }
@@ -940,9 +893,7 @@ function showMenu() {
     </div>`;
 }
  
-// ═══════════════════════════════════════════════════════════
-//  HUD UPDATE
-// ═══════════════════════════════════════════════════════════
+
 function updateHUD() {
   document.getElementById('h-lvl').textContent     = GS.level;
   document.getElementById('h-score').textContent   = GS.score;
@@ -976,9 +927,7 @@ function showPickupFlash() {
   _pkT = setTimeout(() => el.classList.remove('fl'), 200);
 }
  
-// ═══════════════════════════════════════════════════════════
-//  MENU CONFIRM DIALOG
-// ═══════════════════════════════════════════════════════════
+
 function confirmMenu() {
   if (GS.phase !== 'playing') return;
   GS.phase = 'confirm';
@@ -993,9 +942,7 @@ function confirmNo() {
   GS.phase = 'playing';
 }
  
-// ═══════════════════════════════════════════════════════════
-//  INPUT
-// ═══════════════════════════════════════════════════════════
+
 document.addEventListener('keydown', e => {
   GS.keys[e.code] = true;
   if (e.code === 'Space' && GS.phase === 'playing') { e.preventDefault(); doShoot(); }
@@ -1006,9 +953,7 @@ document.addEventListener('keydown', e => {
 });
 document.addEventListener('keyup',   e => { GS.keys[e.code] = false; });
  
-// ═══════════════════════════════════════════════════════════
-//  MAIN LOOP
-// ═══════════════════════════════════════════════════════════
+
 const clock = new THREE.Clock();
  
 function loop() {
@@ -1024,7 +969,7 @@ function loop() {
     return;
   }
  
-  // ── Player movement ──────────────────────────────────
+  
   if (GS.keys['ArrowLeft'])  playerObj.rotation.y += ROT_SPEED * dt;
   if (GS.keys['ArrowRight']) playerObj.rotation.y -= ROT_SPEED * dt;
  
@@ -1036,20 +981,19 @@ function loop() {
   if (GS.keys['ArrowUp'])   { playerObj.position.addScaledVector(fwd,  P_SPEED * dt); moving = true; }
   if (GS.keys['ArrowDown'])  { playerObj.position.addScaledVector(fwd, -P_SPEED * dt); moving = true; }
  
-  // Clamp to arena
+  
   playerObj.position.x = THREE.MathUtils.clamp(playerObj.position.x, -ARENA + 1.3, ARENA - 1.3);
   playerObj.position.z = THREE.MathUtils.clamp(playerObj.position.z, -ARENA + 1.3, ARENA - 1.3);
  
-  // Head bob
+  
   camera.position.y = moving ? Math.sin(t * 9.5) * 0.042 : camera.position.y * 0.85;
  
-  // ── Hiding detection ─────────────────────────────────
+  
   updateHiding(dt);
  
-  // ── Enemy AI ─────────────────────────────────────────
+  
   enemies.forEach(e => e.update(dt));
- 
-  // ── Player bullets ────────────────────────────────────
+
   for (let i = pBullets.length - 1; i >= 0; i--) {
     const b = pBullets[i];
     b.mesh.position.addScaledVector(b.dir, b.speed * dt);
@@ -1075,8 +1019,6 @@ function loop() {
     if (killed) continue;
     if (b.mesh.position.distanceTo(playerObj.position) > 85) killBullet(pBullets, i);
   }
- 
-  // ── Enemy bullets ─────────────────────────────────────
   for (let i = eBullets.length - 1; i >= 0; i--) {
     const b = eBullets[i];
     b.mesh.position.addScaledVector(b.dir, b.speed * dt);
@@ -1102,23 +1044,19 @@ function loop() {
     if (b.mesh.position.distanceTo(playerObj.position) > 85) killBullet(eBullets, i);
   }
  
-  // ── Pickups ──────────────────────────────────────────
   updatePickups(dt);
  
-  // ── Particles ────────────────────────────────────────
   updateParticles(dt);
  
   renderer.render(scene, camera);
 }
  
-// ── Resize ─────────────────────────────────────────────────
 window.addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(innerWidth, innerHeight);
 });
  
-// ── Launch ─────────────────────────────────────────────────
 loop();
 </script>
 </body>
