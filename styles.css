@@ -1,0 +1,398 @@
+/* ═══════════════════════════════════════════════════════════
+   NEURAL ARENA — styles.css
+   ═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  overflow: hidden;
+  font-family: 'Share Tech Mono', monospace;
+  color: #0cf;
+  cursor: crosshair;
+}
+
+#cw {
+  position: fixed;
+  inset: 0;
+}
+
+/* ── SCANLINES ──────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.04) 2px,
+    rgba(0, 0, 0, 0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ── HUD WRAPPER ────────────────────────────────────────── */
+#hud {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  display: none;
+}
+
+/* ── CROSSHAIR ──────────────────────────────────────────── */
+#crosshair {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#crosshair::before,
+#crosshair::after {
+  content: '';
+  position: absolute;
+  background: rgba(0, 220, 255, 0.82);
+}
+
+#crosshair::before {
+  width: 22px;
+  height: 2px;
+  top: -1px;
+  left: -11px;
+}
+
+#crosshair::after {
+  width: 2px;
+  height: 22px;
+  top: -11px;
+  left: -1px;
+}
+
+.chdot {
+  width: 5px;
+  height: 5px;
+  background: #0ff;
+  border-radius: 50%;
+  position: absolute;
+  top: -2.5px;
+  left: -2.5px;
+}
+
+/* ── HUD TOP BAR ────────────────────────────────────────── */
+#hud-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 28px;
+}
+
+.htblock {
+  text-align: center;
+  background: rgba(0, 8, 18, 0.72);
+  border: 1px solid rgba(0, 180, 255, 0.18);
+  padding: 8px 20px;
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%);
+}
+
+.htlbl {
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: rgba(0, 200, 255, 0.45);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.htval {
+  font-family: 'Orbitron', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0cf;
+  text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+}
+
+/* ── HUD BOTTOM BAR ─────────────────────────────────────── */
+#hud-btm {
+  position: absolute;
+  bottom: 22px;
+  left: 22px;
+  right: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.hbblock {
+  background: rgba(0, 8, 18, 0.72);
+  border: 1px solid rgba(0, 180, 255, 0.18);
+  padding: 10px 16px;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+}
+
+.hblbl {
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: rgba(0, 200, 255, 0.45);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.hbval {
+  font-family: 'Orbitron', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0cf;
+  text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
+}
+
+#hpbarwrap {
+  height: 5px;
+  background: rgba(0, 255, 80, 0.1);
+  border: 1px solid rgba(0, 255, 80, 0.25);
+  margin-top: 6px;
+  width: 148px;
+  overflow: hidden;
+}
+
+#hpbar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #00ff66, #00cc44);
+  transition: width 0.15s, background 0.3s;
+  box-shadow: 0 0 8px #0f6;
+}
+
+/* ── CONTROLS STRIP ─────────────────────────────────────── */
+#ctrlstrip {
+  position: fixed;
+  top: 58px;
+  right: 22px;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: rgba(0, 200, 255, 0.35);
+  line-height: 2.1;
+  pointer-events: none;
+  z-index: 10;
+  text-align: right;
+  display: none;
+}
+
+/* ── BACK BUTTON ────────────────────────────────────────── */
+#back-btn {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: none;
+  font-family: 'Orbitron', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  padding: 9px 22px;
+  background: rgba(0, 5, 14, 0.8);
+  border: 1px solid rgba(0, 180, 255, 0.28);
+  color: rgba(0, 200, 255, 0.55);
+  cursor: pointer;
+  text-transform: uppercase;
+  pointer-events: all;
+  transition: all 0.22s;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+
+#back-btn:hover {
+  background: rgba(0, 10, 28, 0.92);
+  border-color: rgba(0, 200, 255, 0.7);
+  color: #0cf;
+  box-shadow: 0 0 16px rgba(0, 200, 255, 0.3);
+}
+
+/* ── CONFIRM DIALOG ─────────────────────────────────────── */
+#confirm-box {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(0, 2, 8, 0.88);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+#confirm-box.vis {
+  display: flex;
+}
+
+.conf-title {
+  font-family: 'Orbitron', monospace;
+  font-size: 18px;
+  letter-spacing: 5px;
+  color: #0cf;
+  text-shadow: 0 0 18px rgba(0, 204, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.conf-sub {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.conf-row {
+  display: flex;
+  gap: 16px;
+}
+
+/* ── OVERLAY SCREENS ────────────────────────────────────── */
+#overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+}
+
+#overlay.vis {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#overlay.menu     { background: rgba(0, 2, 8, 0.96); }
+#overlay.gameover { background: rgba(14, 0, 0, 0.88); }
+#overlay.lvlclear { background: rgba(0, 10, 6, 0.84); }
+
+.ovtitle {
+  font-family: 'Orbitron', monospace;
+  font-weight: 900;
+  font-size: clamp(34px, 7vw, 80px);
+  letter-spacing: 6px;
+  text-align: center;
+  line-height: 1.1;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+.menu     .ovtitle { color: #0cf;    text-shadow: 0 0 30px #0cf, 0 0 60px rgba(0, 204, 255, 0.25); }
+.gameover .ovtitle { color: #ff2244; text-shadow: 0 0 30px #f02, 0 0 60px rgba(255, 0, 34, 0.14); }
+.lvlclear .ovtitle { color: #00ff88; text-shadow: 0 0 30px #0f8, 0 0 60px rgba(0, 255, 136, 0.14); }
+
+.ovsub {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.48);
+  margin-bottom: 34px;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.diffrow {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.ovbtn {
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  letter-spacing: 4px;
+  padding: 13px 30px;
+  background: transparent;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.ovbtn.easy { border: 2px solid #00ff88; color: #00ff88; }
+.ovbtn.med  { border: 2px solid #ffcc00; color: #ffcc00; }
+.ovbtn.hard { border: 2px solid #ff3355; color: #ff3355; }
+.ovbtn.def  { border: 2px solid #0cf;    color: #0cf;    }
+
+.ovbtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 22px currentColor;
+  color: #fff;
+}
+
+.menukeys {
+  margin-top: 22px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(0, 200, 255, 0.33);
+  text-align: center;
+  line-height: 2.2;
+}
+
+/* ── FX OVERLAYS ────────────────────────────────────────── */
+#vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(255, 0, 30, 0) 100%);
+  transition: background 0.12s;
+}
+
+#vignette.hit {
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(255, 0, 30, 0.62) 100%);
+  transition: background 0s;
+}
+
+#pkflash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 31;
+  background: rgba(0, 255, 80, 0);
+  transition: background 0.12s;
+}
+
+#pkflash.fl {
+  background: rgba(0, 255, 80, 0.28);
+  transition: background 0s;
+}
+
+/* ── HIDING WARNING ─────────────────────────────────────── */
+#hidewarn {
+  position: fixed;
+  top: 27%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Orbitron', monospace;
+  font-size: 12px;
+  letter-spacing: 5px;
+  color: #ff4400;
+  text-shadow: 0 0 14px #ff4400;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+  text-align: center;
+  line-height: 1.8;
+  transition: opacity 0.3s;
+  animation: wp 0.6s ease-in-out infinite;
+}
+
+@keyframes wp {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
